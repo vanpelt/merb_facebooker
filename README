@@ -1,0 +1,6 @@
+merb_facebooker
+===============
+
+A plugin for Merb that hooks up the facebooker gem.  Currently it just mixes some good stuff into Merb::Controller... the helpers are missing along with the CGI extentions.  These should be easily ported from the rails plugin portion of facebooker... I just haven't needed it yet.
+
+Finnaly facebook comes to Merb :)
