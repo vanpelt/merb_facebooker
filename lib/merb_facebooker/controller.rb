@@ -57,8 +57,7 @@ module Facebooker
       
       def create_new_facebook_session_and_redirect!
         session[:facebook_session] = new_facebook_session
-        redirect(session[:facebook_session].login_url) unless @installation_required
-        false
+        throw :halt, redirect(session[:facebook_session].login_url) unless @installation_required 
       end
       
       def new_facebook_session
@@ -147,7 +146,7 @@ module Facebooker
       end
       
       def application_is_not_installed_by_facebook_user
-        redirect session[:facebook_session].install_url
+        throw :halt, redirect(session[:facebook_session].install_url)
       end
       
       def set_fbml_format
