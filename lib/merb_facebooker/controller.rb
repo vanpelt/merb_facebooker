@@ -116,14 +116,15 @@ module Facebooker
       
       def redirect(*args)
         if request_is_for_a_facebook_canvas?
-          render :text => fbml_redirect_tag(*args)
+          fbml_redirect_tag(*args)
         else
           super
         end
       end
       
       def fbml_redirect_tag(url)
-        "<fb:redirect url=\"#{url_for(url)}\" />"
+        puts url
+        "<fb:redirect url=\"#{url}\" />"
       end
       
       def request_is_for_a_facebook_canvas?

@@ -1,12 +1,12 @@
 namespace :facebooker do
   desc "Create a basic facebooker.yml configuration file"
-  task :setup => :environment do   
-    facebook_config = File.join(RAILS_ROOT,"config","facebooker.yml")
+  task :setup do   
+    facebook_config = File.join(Merb.root,"config","facebooker.yml")
     unless File.exist?(facebook_config)
-      cp File.join(RAILS_ROOT,"facebooker.yml.tpl"), facebook_config 
-      puts "Configuration created in #{RAILS_ROOT}/config/facebooker.yml"
+      cp File.join(Merb.root,"facebooker.yml.tpl"), facebook_config 
+      puts "Configuration created in #{Merb.root}/config/facebooker.yml"
     else
-      puts "#{RAILS_ROOT}/config/facebooker.yml already exists"
+      puts "#{Merb.root}/config/facebooker.yml already exists"
     end
   end
   

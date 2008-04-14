@@ -3,7 +3,7 @@ require 'rake/gempackagetask'
 
 PLUGIN = "merb_facebooker"
 NAME = "merb_facebooker"
-VERSION = "0.0.1"
+VERSION = "0.0.2"
 AUTHOR = "Chris Van Pelt"
 EMAIL = "vanpelt@doloreslabs.com"
 HOMEPAGE = "http://merb-plugins.rubyforge.org/merb_facebooker/"
