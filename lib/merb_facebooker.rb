@@ -17,6 +17,9 @@ if defined?(Merb::Plugins)
   end
   
   Merb.add_mime_type(:fbml,  :to_fbml,  %w[application/fbml text/fbml], :Encoding => "UTF-8")
+  Merb::Request.http_method_overrides.push(
+    proc { |c| c.params[:fb_sig_request_method] }
+  )
   
   Merb::BootLoader.before_app_loads do
     Merb::Controller.send(:include, Facebooker::Merb::Controller) 
