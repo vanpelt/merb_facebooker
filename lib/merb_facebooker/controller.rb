@@ -1,21 +1,15 @@
 module Facebooker
   module Merb
     module Controller
+      
       def self.included(controller)
         controller.extend(ClassMethods)
         controller.before :set_fbml_format
-        #controller.helper_attr :facebook_session_parameters
-        
       end
       
       def facebook_session
         @facebook_session
       end
-      
-      def facebook_session_parameters
-        {:fb_sig_session_key=>params[:fb_sig_session_key]}
-      end
-      
       
       def set_facebook_session
         session_set = session_already_secured? || secure_with_token! || secure_with_facebook_params!
@@ -151,7 +145,7 @@ module Facebooker
       end
       
       def set_fbml_format
-        params[:format]="fbml" if request_is_for_a_facebook_canvas?
+        params[:format] = "fbml" if request_is_for_a_facebook_canvas?
       end
       
       module ClassMethods
