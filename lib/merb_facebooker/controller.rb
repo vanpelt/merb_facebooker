@@ -103,15 +103,23 @@ module Facebooker
 
       #
       # Get all the parameters from facebook via the request or cookies...
+      # (Cookies have more presedence)
       #
       def verified_facebook_params
-        facebook_sig_params = params.inject({}) do |collection, pair|
-          collection[pair.first.sub(/^fb_sig_/, '')] = pair.last if pair.first[0,7] == 'fb_sig_'
-          collection
+        if !cookies[Facebooker::Session.api_key].blank?
+          facebook_sig_params = cookies.inject({}) do |collection, pair|
+            if pair.first =~ /^#{Facebooker::Session.api_key}_(.+)/
+              collection[$1] = pair.last
+            end
+          end
+        else
+          # same ol...
+          facebook_sig_params = params.inject({}) do |collection, pair|
+            collection[pair.first.sub(/^fb_sig_/, '')] = pair.last if pair.first[0,7] == 'fb_sig_'
+            collection
+          end
+          verify_signature(facebook_sig_params, params['fb_sig'])
         end
-        
-        verify_signature(facebook_sig_params, params['fb_sig'])
-
         facebook_sig_params.inject(Mash.new) do |collection, pair| 
           collection[pair.first] = facebook_parameter_conversions[pair.first].call(pair.last)
           collection
@@ -151,7 +159,6 @@ module Facebooker
           'friends' => lambda{|value| value.split(/,/)}
         )
       end
-      
       
       #
       # Overwrite of the redirect method, if it is to a canvas, then use an fbml_redirect_tag
