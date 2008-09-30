@@ -106,11 +106,12 @@ module Facebooker
       # (Cookies have more presedence)
       #
       def verified_facebook_params
-        if !cookies[Facebooker::Session.api_key].blank?
-          facebook_sig_params = cookies.inject({}) do |collection, pair|
+        if !request.cookies[Facebooker::Session.api_key].blank?
+          facebook_sig_params = request.cookies.inject({}) do |collection, pair|
             if pair.first =~ /^#{Facebooker::Session.api_key}_(.+)/
               collection[$1] = pair.last
             end
+            collection
           end
         else
           # same ol...
@@ -120,6 +121,7 @@ module Facebooker
           end
           verify_signature(facebook_sig_params, params['fb_sig'])
         end
+        
         facebook_sig_params.inject(Mash.new) do |collection, pair| 
           collection[pair.first] = facebook_parameter_conversions[pair.first].call(pair.last)
           collection
