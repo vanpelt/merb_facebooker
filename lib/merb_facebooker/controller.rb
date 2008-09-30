@@ -61,7 +61,8 @@ module Facebooker
       # from the facebook_params hash key
       #
       def secure_with_facebook_params!
-        return unless request_is_for_a_facebook_canvas?
+        debugger
+        return if !request_is_for_a_facebook_canvas? && !using_facebook_connect?
         
         if ['user', 'session_key'].all? {|element| facebook_params[element]}
           @facebook_session = new_facebook_session
@@ -180,6 +181,10 @@ module Facebooker
       
       def request_is_for_a_facebook_canvas?
         !params['fb_sig_in_canvas'].blank?
+      end
+      
+      def using_facebook_connect?
+        !cookies[Facebooker::Session.api_key].blank?
       end
       
       def application_is_installed?
