@@ -3,7 +3,7 @@ namespace :facebooker do
   task :setup do   
     facebook_config = File.join(Merb.root,"config","facebooker.yml")
     unless File.exist?(facebook_config)
-      cp File.join(Merb.root,"facebooker.yml.tpl"), facebook_config 
+      cp File.dirname(__FILE__) + '/../../templates/config/facebooker.yml', facebook_config 
       puts "Configuration created in #{Merb.root}/config/facebooker.yml"
     else
       puts "#{Merb.root}/config/facebooker.yml already exists"
