@@ -13,5 +13,5 @@ Gem::Specification.new do |s|
   s.add_dependency('facebooker')
   s.require_path = 'lib'
   s.autorequire = "merb_facebooker"
-  s.files = %w(LICENSE README Rakefile TODO) + Dir.glob("{lib,specs}/**/*")
+  s.files = %w(LICENSE README Rakefile TODO lib/merb_facebooker/controller.rb lib/merb_facebooker/helpers.rb lib/merb_facebooker/merbtasks.rb lib/merb_facebooker.rb spec/merb_facebooker_spec.rb spec/spec_helper.rb)
 end
