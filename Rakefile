@@ -41,5 +41,5 @@ namespace :jruby do
   task :install => :package do
     sh %{#{SUDO} jruby -S gem install pkg/#{NAME}-#{Merb::VERSION}.gem --no-rdoc --no-ri}
   end
-  
+
 end
